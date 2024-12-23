@@ -9,7 +9,7 @@ const resList = [
       city: "1",
       area: "BTM Layout",
       totalRatingsString: "500+ ratings",
-      cloudinaryImageId: "bdcd233971b7c81bf77e1fa4471280eb",
+      cloudinaryImageId: "wvjsuvqrd6ahqqyhmnrt",
       cuisines: ["Burgers", "Biryani", "American", "Snacks", "Fast Food"],
       tags: [],
       costForTwo: 40000,

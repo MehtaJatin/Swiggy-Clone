@@ -1,20 +1,48 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import resList from "../utils/mockData";
 import Search from "./Search";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestraunt] = useState(resList);
+  const [listOfRestaurants, setListOfRestraunt] = useState([]);
   const originalList = resList;
   const searchObject = {
     resList: listOfRestaurants,
     setResList: setListOfRestraunt,
     originalResList: originalList,
   };
-  return (
+
+  const fetchData = async () => {
+    try {
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
+      );
+      const json = await data.json();
+      console.log(json.data);
+      setListOfRestraunt(resList);
+      // setListOfRestraunt(json.data.cards[3].card.card.info);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
+  }
+
+  return listOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
-      <Search searchObject={searchObject} />
       <div className="filter">
+        <div className="search">
+          <Search searchObject={searchObject} />
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
