@@ -89,3 +89,14 @@
 .search {
   display: flex;
 }
+
+.link-style {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.9s;
+}
+
+.link-style:hover {
+  color: grey;
+}

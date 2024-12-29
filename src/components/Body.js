@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import resList from "../utils/mockData";
 import Search from "./Search";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestraunt] = useState([]);
@@ -31,8 +33,9 @@ const Body = () => {
     fetchData();
   }, []);
 
-  if (listOfRestaurants.length === 0) {
-    return <Shimmer />;
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return <h1>Please check your internet connection</h1>;
   }
 
   return listOfRestaurants.length === 0 ? (
@@ -58,7 +61,13 @@ const Body = () => {
       </div>
       <div className="res-container">
         {listOfRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.data.id} resData={restaurant} />
+          <Link
+            className="link-style"
+            key={restaurant.data.id}
+            to={"/restaurants/" + restaurant.data.id}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
