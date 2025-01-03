@@ -18,11 +18,11 @@ const Search = (props) => {
   };
 
   return (
-    <div className="search-container">
+    <div className="m-3 p-3">
       <div className="search-input">
         <input
           type="text"
-          className="search"
+          className="border border-solid border-black"
           placeholder="restaurant"
           value={searchText}
           onChange={searchRest}
